@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ta">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>வலம்புரி</title>
+    <meta name="description"
+        content="சென்னை, கோவை, மதுரை உள்ளிட்ட தமிழகப் புறநகர்ப் பகுதிகளில் சூரிய ஒளி நுண்-மின்வலைகள் மற்றும் மின்கல சேமிப்பு அமைப்புகள் எவ்வாறு மின் கட்டணத்தைக் குறைத்து தடையற்ற மின்சாரத்தை வழங்குகின்றன என்பது குறித்த சிறப்புக் கட்டுரை." />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Serif Tamil & Noto Sans Tamil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="newspaper.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        newsprint: '#FAF9F6',
+                        newsprintDark: '#121316',
+                        ink: '#181818',
+                        inkMuted: '#4A4E54',
+                        editorialCrimson: '#A8201A',
+                        editorialGold: '#B47B2B',
+                        editorialBorder: '#D8D3C8',
+                        editorialBorderDark: '#2E3138'
+                    },
+                    fontFamily: {
+                        masthead: ['"Noto Serif Tamil"', 'serif'],
+                        serifBody: ['"Noto Serif Tamil"', 'serif'],
+                        sansUi: ['"Noto Sans Tamil"', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+
+</head>
+
+<body
+    class="antialiased selection:bg-amber-200 selection:text-ink dark:selection:bg-amber-800 dark:selection:text-white">
+
+    <!-- Skip to Main Content Link -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-editorialCrimson focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:font-sansUi focus:text-sm focus:font-semibold shadow-lg">
+        முதன்மைச் செய்திக்குச் செல்லவும்
+    </a>
+
+    <!-- Top Utility Bar -->
+    <div
+        class="border-b border-editorialBorder dark:border-editorialBorderDark bg-[#F2EFE9] dark:bg-[#181A1F] font-sansUi text-xs text-inkMuted dark:text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+            <!-- Tamil Calendar & Gregorian Date -->
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <time datetime="2026-11-22" class="font-semibold text-ink dark:text-gray-100">
+                    ஞாயிற்றுக்கிழமை, நவம்பர் 22, 2026 | கார்த்திகை 06, விசுவாவசு ஆண்டு
+                </time>
+                <span aria-hidden="true" class="hidden md:inline text-gray-400">|</span>
+                <span class="hidden md:inline text-inkMuted dark:text-gray-400">சென்னை • கோவை • மதுரை • உலகம்</span>
+            </div>
+
+            <!-- Weather & Accessibility Controls -->
+            <div class="flex items-center gap-3">
+                <span class="hidden lg:inline text-inkMuted dark:text-gray-400">
+                    சென்னை 28°C • பசுமை மின் பங்களிப்பு: <strong
+                        class="text-emerald-800 dark:text-emerald-400">41.8%</strong>
+                </span>
+
+                <!-- Font Size Controls -->
+                <div class="inline-flex items-center rounded border border-editorialBorder dark:border-gray-600 bg-white dark:bg-[#121316] p-0.5"
+                    role="group" aria-label="எழுத்து அளவு மாற்றம்">
+                    <button type="button" data-font-size="sm"
+                        class="font-size-btn px-2 py-0.5 text-[11px] font-semibold rounded text-inkMuted dark:text-gray-300 hover:text-ink dark:hover:text-white transition-colors"
+                        aria-label="சிறிய எழுத்து அளவு">
+                        அ-
+                    </button>
+                    <button type="button" data-font-size="md"
+                        class="font-size-btn px-2 py-0.5 text-[11px] font-bold rounded bg-[#F2EFE9] dark:bg-gray-700 text-ink dark:text-white transition-colors"
+                        aria-label="நடுத்தர எழுத்து அளவு" aria-pressed="true">
+                        அ
+                    </button>
+                    <button type="button" data-font-size="lg"
+                        class="font-size-btn px-2 py-0.5 text-[11px] font-semibold rounded text-inkMuted dark:text-gray-300 hover:text-ink dark:hover:text-white transition-colors"
+                        aria-label="பெரிய எழுத்து அளவு">
+                        அ+
+                    </button>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" type="button"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-editorialBorder dark:border-gray-600 bg-white dark:bg-[#121316] text-[11px] font-semibold text-ink dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    aria-pressed="false" aria-label="இரவுப் பயன்முறை மாற்றம்">
+                    <svg id="theme-icon-moon" class="w-3.5 h-3.5 text-editorialCrimson" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                    <svg id="theme-icon-sun" class="w-3.5 h-3.5 hidden text-amber-400" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5" />
+                        <path stroke-linecap="round"
+                            d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                    <span id="theme-label">இரவுப் பயன்முறை</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publication Header & Broadsheet Masthead -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 items-center gap-4 pb-5">
+            <!-- Left Editorial Motto & Issue Details -->
+            <div
+                class="hidden md:block md:col-span-3 font-sansUi text-xs text-inkMuted dark:text-gray-400 leading-relaxed border-l-2 border-editorialCrimson pl-3">
+                <p class="font-bold text-ink dark:text-gray-200">உண்மை • தெளிவு • நடுநிலை</p>
+                <p class="mt-0.5">மலர் 14 | இதழ் 326</p>
+                <p class="text-[11px] mt-0.5">நம்பகமான தமிழ் இதழியல் பாரம்பரியம்</p>
+            </div>
+
+            <!-- Center Prominent Masthead -->
+            <div class="md:col-span-6 text-center">
+                <a href="#" class="inline-block focus:outline-none">
+                    <div
+                        class="font-masthead text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight text-ink dark:text-white leading-tight">
+                        வலம்புரி
+                    </div>
+                    <p
+                        class="font-sansUi text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-editorialCrimson dark:text-amber-400 mt-1">
+                        THE DAILY BRIEF — TAMIL EDITION
+                    </p>
+                </a>
+                <p class="md:hidden font-sansUi text-xs text-inkMuted dark:text-gray-400 mt-1.5">
+                    உண்மை • தெளிவு • நடுநிலை • மலர் 14 | இதழ் 326
+                </p>
+            </div>
+
+            <!-- Right Subscription & Quick Jump Buttons -->
+            <div class="md:col-span-3 flex md:justify-end justify-center items-center gap-2 font-sansUi text-xs">
+                <a href="#subscribe-section"
+                    class="px-3.5 py-2 rounded-md bg-editorialCrimson text-white font-semibold hover:bg-red-800 transition-colors shadow-sm">
+                    சந்தா சேரவும்
+                </a>
+                <a href="#related-news"
+                    class="px-3 py-2 rounded-md border border-editorialBorder dark:border-gray-600 text-ink dark:text-gray-200 font-medium hover:bg-gray-200/60 dark:hover:bg-gray-800 transition-colors">
+                    இன்றைய இதழ்
+                </a>
+            </div>
+        </div>
+
+        <!-- Semantic Section Navigation -->
+        <nav aria-label="முதன்மை வழிசெலுத்தல்" class="double-rule border-b border-ink dark:border-gray-600 py-2.5">
+            <ul
+                class="flex flex-wrap items-center justify-center gap-x-5 sm:gap-x-7 gap-y-2 font-sansUi text-xs sm:text-sm font-semibold text-ink dark:text-gray-200">
+                <li>
+                    <a href="#main-content"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        முகப்பு
+                    </a>
+                </li>
+                <li>
+                    <a href="#main-content" aria-current="page"
+                        class="text-editorialCrimson dark:text-amber-400 border-b-2 border-editorialCrimson dark:border-amber-400 pb-0.5">
+                        தமிழகம்
+                    </a>
+                </li>
+                <li>
+                    <a href="#related-news"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        இந்தியா
+                    </a>
+                </li>
+                <li>
+                    <a href="#related-news"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        உலகம்
+                    </a>
+                </li>
+                <li>
+                    <a href="#data-breakdown"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        வணிகம்
+                    </a>
+                </li>
+                <li>
+                    <a href="#data-breakdown"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        அறிவியல் &amp; தொழில்நுட்பம்
+                    </a>
+                </li>
+                <li>
+                    <a href="#most-read"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        தலையங்கம்
+                    </a>
+                </li>
+                <li>
+                    <a href="#related-news"
+                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                        விளையாட்டு
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Grid (8 Columns Article + 4 Columns Sidebar) -->
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+
+            <!-- Left Column: Featured News Article (8 Columns) -->
+            <article
+                class="lg:col-span-8 lg:border-r lg:border-editorialBorder dark:lg:border-editorialBorderDark lg:pr-10">
+
+                <!-- Article Header -->
+                <header class="mb-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3 font-sansUi">
+                        <span
+                            class="inline-block px-2.5 py-0.5 rounded bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-xs font-bold text-editorialCrimson dark:text-amber-400">
+                            பசுமை எரிசக்தி &amp; நகர்ப்புற வளர்ச்சி • சிறப்புக் கட்டுரை
+                        </span>
+                        <span class="text-xs text-inkMuted dark:text-gray-400 font-medium">
+                            5 நிமிட வாசிப்பு
+                        </span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1
+                        class="font-masthead text-2xl sm:text-3xl lg:text-[2.35rem] font-extrabold text-ink dark:text-white leading-[1.32] mb-4">
+                        புறநகர் மின் கட்டமைப்பில் புதிய புரட்சி: சூரிய ஒளி நுண்-மின்வலைகளால் தன்னிறைவு பெறும் தமிழக
+                        நகரங்கள்
+                    </h1>
+
+                    <!-- Subtitle / Deck -->
+                    <p
+                        class="subtitle font-serifBody text-base sm:text-lg text-inkMuted dark:text-gray-300 leading-[1.78] mb-6">
+                        சென்னை, கோவை மற்றும் மதுரை புறநகர்ப் பகுதிகளில் பரவலாக்கப்பட்ட மேற்கூரை சூரிய ஒளி மின்
+                        உற்பத்தியும், தெருமுனை மின்கல சேமிப்பு மையங்களும் இணைந்து மின்தடையை முற்றிலும் ஒழித்து,
+                        சாமானியக் குடும்பங்களின் மின் கட்டணத்தைக் கணிசமாகக் குறைத்து வருகின்றன.
+                    </p>
+
+                    <!-- Author Byline, Timestamp & Action Controls -->
+                    <div
+                        class="border-y border-editorialBorder dark:border-editorialBorderDark py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-sansUi">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-editorialCrimson text-white flex items-center justify-center font-masthead font-bold text-base shrink-0"
+                                aria-hidden="true">
+                                கா
+                            </div>
+                            <div>
+                                <address class="not-italic text-sm font-bold text-ink dark:text-gray-100">
+                                    <a href="#subscribe-section" rel="author"
+                                        class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                                        கார்த்திகேயன் சுப்பிரமணியன்
+                                    </a>
+                                    <span class="font-normal text-xs text-inkMuted dark:text-gray-400"> — மூத்த
+                                        சிறப்புச் செய்தியாளர்</span>
+                                </address>
+                                <div
+                                    class="text-xs text-inkMuted dark:text-gray-400 flex flex-wrap items-center gap-x-2 mt-0.5">
+                                    <span>சென்னை</span>
+                                    <span aria-hidden="true">•</span>
+                                    <time datetime="2026-11-22T08:30:00+05:30">நவம்பர் 22, 2026, காலை 08:30 IST</time>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Share & Bookmark Buttons -->
+                        <div class="flex items-center gap-2 self-start sm:self-center" role="group"
+                            aria-label="கட்டுரைப் பகிர்வு மற்றும் சேமிப்பு">
+                            <button id="bookmark-btn" type="button"
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-editorialBorder dark:border-gray-600 bg-[#F2EFE9] dark:bg-[#1C1F26] text-xs font-semibold text-ink dark:text-gray-200 hover:bg-gray-200/70 dark:hover:bg-gray-800 transition-colors"
+                                aria-pressed="false" aria-label="கட்டுரையைப் புத்தகக்குறியிடு">
+                                <svg id="bookmark-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                                <span id="bookmark-label">சேமி</span>
+                            </button>
+
+                            <button id="share-btn" type="button"
+                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-editorialBorder dark:border-gray-600 bg-[#F2EFE9] dark:bg-[#1C1F26] text-xs font-semibold text-ink dark:text-gray-200 hover:bg-gray-200/70 dark:hover:bg-gray-800 transition-colors"
+                                aria-label="கட்டுரை இணைப்பை நகலெடு">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                </svg>
+                                <span id="share-label">பகிர்</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Lead Visual with Fallback & Tamil Caption -->
+                <figure class="mb-8">
+                    <div
+                        class="overflow-hidden rounded-lg border border-editorialBorder dark:border-editorialBorderDark bg-[#EFECE6] dark:bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1400&q=85"
+                            onerror="this.onerror=null;this.src='https://placehold.co/1200x650/EFECE6/181818?text=சூரிய+ஒளி+நுண்-மின்வலை+கட்டமைப்பு';"
+                            alt="புறநகர்க் குடியிருப்புப் பகுதியில் நிறுவப்பட்டுள்ள நவீன சூரிய ஒளி மின் தகடுகள் மற்றும் சமூக மின்கல சேமிப்பு மையத்தின் காட்சி"
+                            class="w-full h-auto max-h-[460px] object-cover block" />
+                    </div>
+                    <figcaption
+                        class="mt-2.5 font-sansUi text-xs text-inkMuted dark:text-gray-400 leading-relaxed flex flex-col sm:flex-row sm:justify-between gap-1 border-b border-editorialBorder dark:border-editorialBorderDark pb-3">
+                        <span>
+                            <strong class="text-ink dark:text-gray-200">பசுமை ஆற்றல் மையம்:</strong> சென்னை தாம்பரம்
+                            புறநகர்ப் பகுதியில் வீடுகளின் மேற்கூரைகளில் பொருத்தப்பட்டுள்ள சூரிய ஒளித் தகடுகள்,
+                            அருகிலுள்ள சமூக மின்கல சேமிப்பு நிலையத்துடன் இணைக்கப்பட்டு இரவு நேர மின் தேவையை நிறைவு
+                            செய்கின்றன.
+                        </span>
+                        <span class="shrink-0 italic">புகைப்படம்: அருண் பிரசாத் / தினச் சுருக்கம்</span>
+                    </figcaption>
+                </figure>
+
+                <!-- Structured Article Body -->
+                <div id="article-body" class="article-text-md space-y-6 text-ink dark:text-gray-200">
+
+                    <!-- Section 1 -->
+                    <section aria-labelledby="sec-1-heading" class="space-y-4">
+                        <p class="tamil-drop-cap">
+                            சென்னை தாம்பரத்தை அடுத்த முடிச்சூர் சாலையின் ஓரத்தில், புதிய அடுக்குமாடிக்
+                            குடியிருப்புகளுக்கும் சிறிய வணிக வளாகங்களுக்கும் நடுவே அமைந்துள்ள அந்தச் சாம்பல் நிற எஃகுப்
+                            பெட்டகம் வெளிப்பார்வைக்கு மிக எளிமையானதாகத் தோன்றலாம். ஆனால், உள்ளே 4.5 மெகாவாட்-மணி திறன்
+                            கொண்ட லித்தியம்-இரும்பு-பாஸ்பேட் மின்கலங்கள் (LFP Batteries) அமைதியாக இயங்கிக்
+                            கொண்டிருக்கின்றன. பகல் பொழுதில் அப்பகுதியில் உள்ள சுமார் 600 வீடுகளின் மேற்கூரைகளில்
+                            உற்பத்தியாகும் உபரி சூரிய ஒளி மின்சாரத்தைச் சேமித்து, மாலை நேர உச்சகட்டத் தேவையின்போது
+                            தடையின்றி விநியோகிக்கும் நவீன நுண்-மின்வலை (Microgrid) மையம் இது.
+                        </p>
+
+                        <h2 id="sec-1-heading"
+                            class="font-masthead text-xl sm:text-2xl font-bold text-ink dark:text-white pt-3">
+                            பரவலாக்கப்பட்ட மின் உற்பத்தியின் அவசியம்
+                        </h2>
+
+                        <p>
+                            கடந்த பல தசாப்தங்களாகத் தமிழகத்தின் மின் விநியோக அமைப்பு ஒருவழிப் பாதையாகவே செயல்பட்டு
+                            வந்தது. நெய்வேலி, தூத்துக்குடி, வடசென்னை போன்ற தொலைதூர அனல் மின் நிலையங்களில் உற்பத்தியாகும்
+                            மின்சாரம், நூற்றுக்கணக்கான கிலோமீட்டர் உயரழுத்தக் கம்பிகள் வழியாகக் கொண்டு வரப்பட்டு துணை
+                            மின் நிலையங்கள் மூலம் வீடுகளுக்கு விநியோகிக்கப்பட்டது. இந்த நீண்ட பயணத்தில் ஏற்படும்
+                            மின்கடத்து இழப்பு (Transmission Loss) மற்றும் கோடைக்கால உச்சகட்டத் தேவை ஆகியவை மின்
+                            வாரியத்திற்குப் பெரும் சவாலாக இருந்தன.
+                        </p>
+
+                        <p>
+                            தற்போது, நகர்ப்புற மற்றும் புறநகர் வீடுகளில் சூரிய ஒளித் தகடுகள் பொருத்தும் போக்கு
+                            வேகமெடுத்துள்ள நிலையில், பகல் 11 மணி முதல் பிற்பகல் 3 மணி வரை உள்ளூர் மின்மாற்றிகளில்
+                            (Transformers) உபரி மின்சாரம் தேங்கும் சூழல் உருவானது. இந்த உபரி மின்சாரத்தை உள்ளூரிலேயே
+                            சேமித்து வைத்து, இரவு 6 மணி முதல் 10 மணி வரையிலான உச்ச நேரத்தில் பயன்படுத்தும் வகையில்
+                            வடிவமைக்கப்பட்டவையே இந்தச் சமூக நுண்-மின்வலைத் திட்டங்கள்.
+                        </p>
+                    </section>
+
+                    <!-- Editorial Pull Quote -->
+                    <blockquote
+                        class="my-7 px-6 py-5 border-l-4 border-editorialCrimson dark:border-amber-400 bg-[#F2EFE9] dark:bg-[#181A1F] rounded-r-lg">
+                        <p
+                            class="font-masthead font-semibold text-lg sm:text-xl text-ink dark:text-gray-100 leading-relaxed mb-2">
+                            “தொலைதூர மின் உற்பத்தி நிலையங்களை மட்டுமே நம்பியிருந்த காலம் மலையேறிவிட்டது. ஒவ்வொரு
+                            புறநகர்ப் பகுதியும் தனக்குத் தேவையான மின்சாரத்தைத் தானே உற்பத்தி செய்து, சேமித்துப்
+                            பகிர்ந்து கொள்ளும் ‘ஆற்றல் தன்னிறைவு மண்டலங்களாக’ மாறுவதே எதிர்காலத்தின் நிலையான
+                            தீர்வாகும்.”
+                        </p>
+                        <footer class="font-sansUi text-xs font-semibold text-inkMuted dark:text-gray-400">
+                            — முனைவர் செந்தில்நாதன் இராமமூர்த்தி, எரிசக்திக் கொள்கை ஆய்வாளர், சென்னை
+                        </footer>
+                    </blockquote>
+
+                    <!-- Section 2 -->
+                    <section aria-labelledby="sec-2-heading" class="space-y-4">
+                        <h2 id="sec-2-heading"
+                            class="font-masthead text-xl sm:text-2xl font-bold text-ink dark:text-white pt-2">
+                            மக்கள் பங்களிப்புடன் கூடிய நுண்-மின்வலை மாதிரி
+                        </h2>
+
+                        <p>
+                            இந்தத் திட்டத்தின் மிக முக்கியமான சிறப்பம்சம் என்னவென்றால், சொந்தமாக மேற்கூரை இல்லாத வாடகை
+                            வீட்டுக் குடியிருப்பாளர்களும் அடுக்குமாடி குடியிருப்புவாசிகளும் இதில் இணைய முடியும் என்பதே.
+                            உள்ளூர் குடியிருப்பாளர் நலச் சங்கங்கள் மற்றும் மின் விநியோக நிறுவனங்களின் கூட்டு முயற்சியால்
+                            உருவாக்கப்பட்டுள்ள ‘பகிரப்பட்ட சூரிய ஒளி சேமிப்புக் கணக்கு’ (Virtual Solar Share) மூலம்,
+                            அருகிலுள்ள சமூக மின்கல மையத்தில் குறிப்பிட்ட அளவு சேமிப்புத் திறனை முன்பதிவு செய்து
+                            கொள்ளலாம்.
+                        </p>
+
+                        <p>
+                            இதன் வாயிலாக, பகல் நேரத்தில் குறைந்த விலையில் சேமிக்கப்படும் பசுமை மின்சாரம், இரவு நேரத்தில்
+                            அவர்களின் வீட்டு மின் இணைப்புக்கு வரவு வைக்கப்படுகிறது. கோவை சரவணம்பட்டி மற்றும் மதுரை
+                            திருப்பரங்குன்றம் பகுதிகளில் செயல்படுத்தப்பட்ட முன்னோடித் திட்டங்களில், பங்கேற்ற
+                            குடும்பங்களின் இருமாத மின் கட்டணம் சராசரியாக 28 முதல் 35 சதவீதம் வரை குறைந்துள்ளதாகத்
+                            தணிக்கை அறிக்கைகள் தெரிவிக்கின்றன.
+                        </p>
+                    </section>
+
+                    <!-- Structured Data Table -->
+                    <section id="data-breakdown" aria-labelledby="table-heading"
+                        class="my-8 bg-white dark:bg-[#181A1F] border border-editorialBorder dark:border-editorialBorderDark rounded-lg p-4 sm:p-6 shadow-sm">
+                        <div class="mb-4">
+                            <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                                தரவுப் பிரிவு • செயல்திறன் மதிப்பீடு
+                            </span>
+                            <h3 id="table-heading"
+                                class="font-masthead text-lg sm:text-xl font-bold text-ink dark:text-white mt-1 leading-snug">
+                                2026 மூன்றாம் காலாண்டு: தமிழக புறநகர் நுண்-மின்வலைத் திட்டங்களின் செயல்பாட்டு அறிக்கை
+                            </h3>
+                            <p class="font-sansUi text-xs text-inkMuted dark:text-gray-400 mt-1">
+                                நான்கு முக்கிய நகர்ப்புற மண்டலங்களில் நிறுவப்பட்ட திறன், இணைந்த வீடுகள், கட்டணச்
+                                சேமிப்பு மற்றும் மின் விநியோக நிலைத்தன்மை ஒப்பீடு.
+                            </p>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse font-sansUi text-xs sm:text-sm">
+                                <caption class="sr-only">
+                                    தமிழகத்தின் நான்கு புறநகர் மண்டலங்களில் செயல்படும் சூரிய ஒளி நுண்-மின்வலைத்
+                                    திட்டங்களின் செயல்திறன் விவரங்கள்
+                                </caption>
+                                <thead>
+                                    <tr
+                                        class="border-b-2 border-ink dark:border-gray-500 text-ink dark:text-gray-100 text-xs">
+                                        <th scope="col" class="py-3 pr-4 font-bold">புறநகர் மண்டலம்</th>
+                                        <th scope="col" class="py-3 px-3 font-bold text-right">நிறுவப்பட்ட திறன்</th>
+                                        <th scope="col" class="py-3 px-3 font-bold text-right">இணைந்த வீடுகள்</th>
+                                        <th scope="col" class="py-3 px-3 font-bold text-right">மின் கட்டணச் சேமிப்பு
+                                        </th>
+                                        <th scope="col" class="py-3 pl-3 font-bold text-right">தடையற்ற மின்சாரம்</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    class="divide-y divide-editorialBorder dark:divide-editorialBorderDark text-ink dark:text-gray-300">
+                                    <tr class="hover:bg-[#FAF9F6] dark:hover:bg-gray-800/50 transition-colors">
+                                        <th scope="row" class="py-3 pr-4 font-semibold text-ink dark:text-white">
+                                            தாம்பரம் – சென்னை</th>
+                                        <td class="py-3 px-3 text-right tabular-nums">18.4 மெ.வா</td>
+                                        <td class="py-3 px-3 text-right tabular-nums">6,420</td>
+                                        <td
+                                            class="py-3 px-3 text-right font-semibold text-emerald-800 dark:text-emerald-400 tabular-nums">
+                                            34.2%</td>
+                                        <td class="py-3 pl-3 text-right font-semibold tabular-nums">99.8%</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF9F6] dark:hover:bg-gray-800/50 transition-colors">
+                                        <th scope="row" class="py-3 pr-4 font-semibold text-ink dark:text-white">
+                                            சரவணம்பட்டி – கோவை</th>
+                                        <td class="py-3 px-3 text-right tabular-nums">14.2 மெ.வா</td>
+                                        <td class="py-3 px-3 text-right tabular-nums">5,180</td>
+                                        <td
+                                            class="py-3 px-3 text-right font-semibold text-emerald-800 dark:text-emerald-400 tabular-nums">
+                                            31.8%</td>
+                                        <td class="py-3 pl-3 text-right font-semibold tabular-nums">99.7%</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF9F6] dark:hover:bg-gray-800/50 transition-colors">
+                                        <th scope="row" class="py-3 pr-4 font-semibold text-ink dark:text-white">
+                                            திருப்பரங்குன்றம் – மதுரை</th>
+                                        <td class="py-3 px-3 text-right tabular-nums">11.6 மெ.வா</td>
+                                        <td class="py-3 px-3 text-right tabular-nums">4,290</td>
+                                        <td
+                                            class="py-3 px-3 text-right font-semibold text-emerald-800 dark:text-emerald-400 tabular-nums">
+                                            33.5%</td>
+                                        <td class="py-3 pl-3 text-right font-semibold tabular-nums">99.6%</td>
+                                    </tr>
+                                    <tr class="hover:bg-[#FAF9F6] dark:hover:bg-gray-800/50 transition-colors">
+                                        <th scope="row" class="py-3 pr-4 font-semibold text-ink dark:text-white">
+                                            ஸ்ரீரங்கம் – திருச்சி</th>
+                                        <td class="py-3 px-3 text-right tabular-nums">9.8 மெ.வா</td>
+                                        <td class="py-3 px-3 text-right tabular-nums">3,640</td>
+                                        <td
+                                            class="py-3 px-3 text-right font-semibold text-emerald-800 dark:text-emerald-400 tabular-nums">
+                                            29.4%</td>
+                                        <td class="py-3 pl-3 text-right font-semibold tabular-nums">99.5%</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr
+                                        class="border-t-2 border-ink dark:border-gray-500 font-bold text-ink dark:text-white bg-[#F2EFE9]/70 dark:bg-gray-800/40">
+                                        <th scope="row" class="py-2.5 pr-4">மொத்தம் / சராசரி</th>
+                                        <td class="py-2.5 px-3 text-right tabular-nums">54.0 மெ.வா</td>
+                                        <td class="py-2.5 px-3 text-right tabular-nums">19,530</td>
+                                        <td
+                                            class="py-2.5 px-3 text-right text-emerald-800 dark:text-emerald-400 tabular-nums">
+                                            32.2%</td>
+                                        <td class="py-2.5 pl-3 text-right tabular-nums">99.65%</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <p class="font-sansUi text-[11px] text-inkMuted dark:text-gray-400 mt-3">
+                            ஆதாரம்: தமிழ்நாடு பசுமை எரிசக்தி மேம்பாட்டு முகமை (TANGEDCO / TEDA) 2026 மூன்றாம் காலாண்டு
+                            ஆய்வு அறிக்கை.
+                        </p>
+                    </section>
+
+                    <!-- Section 3 -->
+                    <section aria-labelledby="sec-3-heading" class="space-y-4">
+                        <h2 id="sec-3-heading"
+                            class="font-masthead text-xl sm:text-2xl font-bold text-ink dark:text-white pt-2">
+                            எதிர்காலத் திட்டங்களும் சவால்களும்
+                        </h2>
+
+                        <p>
+                            2028-ஆம் ஆண்டிற்குள் மாநிலம் முழுவதும் 150 புறநகர் நுண்-மின்வலை மையங்களை அமைக்க இலக்கு
+                            நிர்ணயிக்கப்பட்டுள்ள போதிலும், சில நடைமுறைச் சவால்களைக் களைவது அவசியம் எனப் பொறியாளர்கள்
+                            சுட்டிக்காட்டுகின்றனர். குறிப்பாக, நெரிசலான குடியிருப்புப் பகுதிகளில் மின்கல சேமிப்பு
+                            மையங்களுக்கான நில ஒதுக்கீடு, பழைய மின்மாற்றிகளை நவீனமயமாக்குதல் மற்றும் மின்கலக் கழிவுகளைப்
+                            பாதுகாப்பாக மறுசுழற்சி செய்யும் கட்டமைப்பை உருவாக்குதல் ஆகியவை முன்னுரிமைப் பணிகளாக உள்ளன.
+                        </p>
+
+                        <p>
+                            இருப்பினும், கடந்த வடகிழக்குப் பருவமழையின்போது சில தாழ்வான பகுதிகளில் முன்னெச்சரிக்கை
+                            நடவடிக்கையாக முதன்மை மின் இணைப்பு துண்டிக்கப்பட்ட நிலையிலும், நுண்-மின்வலை இணைப்பு பெற்ற
+                            குடியிருப்புகள் எவ்விதத் தடையுமின்றி இயங்கியது பொதுமக்களிடையே பெரும் நம்பிக்கையை
+                            விதைத்துள்ளது.
+                        </p>
+                    </section>
+                </div>
+
+                <!-- Article Footer Tags -->
+                <footer class="mt-10 pt-6 border-t border-editorialBorder dark:border-editorialBorderDark font-sansUi">
+                    <div class="flex flex-wrap items-center gap-2 mb-4">
+                        <span class="text-xs font-bold text-inkMuted dark:text-gray-400 mr-1">தொடர்புடைய
+                            தலைப்புகள்:</span>
+                        <a href="#related-news"
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-[#F2EFE9] dark:bg-gray-800 text-ink dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">சூரிய
+                            ஒளி மின்சாரம்</a>
+                        <a href="#related-news"
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-[#F2EFE9] dark:bg-gray-800 text-ink dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">தமிழக
+                            உள்கட்டமைப்பு</a>
+                        <a href="#related-news"
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-[#F2EFE9] dark:bg-gray-800 text-ink dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">பசுமை
+                            ஆற்றல்</a>
+                        <a href="#related-news"
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-[#F2EFE9] dark:bg-gray-800 text-ink dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">சென்னை</a>
+                    </div>
+                    <p class="text-xs text-inkMuted dark:text-gray-400">
+                        இக்கட்டுரை நவம்பர் 22, 2026 அன்று வெளியான ‘தினச் சுருக்கம்’ அச்சுப் பதிப்பின் முதல் பக்கத்திலும்
+                        இடம்பெற்றுள்ளது.
+                    </p>
+                </footer>
+            </article>
+
+            <!-- Right Column: Supporting Sidebar (4 Columns) -->
+            <aside aria-label="முக்கியத் தகவல்கள், தொடர்புடைய செய்திகள் மற்றும் சந்தா விண்ணப்பம்"
+                class="lg:col-span-4 space-y-9">
+
+                <!-- Box 1: Key Takeaways / Fact Box -->
+                <aside aria-labelledby="takeaways-heading"
+                    class="bg-[#F2EFE9] dark:bg-[#181A1F] border-t-4 border-editorialCrimson dark:border-amber-400 border-x border-b border-editorialBorder dark:border-editorialBorderDark rounded-b-lg p-5">
+                    <h2 id="takeaways-heading"
+                        class="font-masthead text-lg font-bold text-ink dark:text-white mb-3 flex items-center gap-2">
+                        <span class="inline-block w-2 h-2 rounded-full bg-editorialCrimson dark:bg-amber-400"
+                            aria-hidden="true"></span>
+                        முக்கியத் தகவல்கள் சுருக்கம்
+                    </h2>
+                    <ul
+                        class="space-y-2.5 font-sansUi text-xs sm:text-[13px] text-ink dark:text-gray-200 leading-relaxed list-disc pl-4 marker:text-editorialCrimson dark:marker:text-amber-400">
+                        <li>தமிழகத்தின் 4 முக்கிய நகர்ப்புற மண்டலங்களில் <strong>54 மெகாவாட்</strong> திறன் கொண்ட
+                            நுண்-மின்வலைகள் செயல்பாட்டுக்கு வந்துள்ளன.</li>
+                        <li>இத்திட்டத்தில் இணைந்துள்ள <strong>19,530 குடும்பங்களுக்கு</strong> சராசரியாக 32.2% வரை மின்
+                            கட்டணம் குறைந்துள்ளது.</li>
+                        <li>சொந்த மேற்கூரை இல்லாத வாடகை வீட்டுக் குடியிருப்பாளர்களும் பகிரப்பட்ட சேமிப்புக் கணக்கு மூலம்
+                            பயனடையலாம்.</li>
+                        <li>2028-ஆம் ஆண்டிற்குள் மாநிலம் முழுவதும் <strong>150 நுண்-மின்வலை மையங்களை</strong> அமைக்க
+                            இலக்கு நிர்ணயிக்கப்பட்டுள்ளது.</li>
+                    </ul>
+                </aside>
+
+                <!-- Box 2: Related News Section -->
+                <section id="related-news" aria-labelledby="related-heading">
+                    <div class="border-t-2 border-ink dark:border-gray-400 pt-2 mb-4 flex items-center justify-between">
+                        <h2 id="related-heading" class="font-masthead text-base font-bold text-ink dark:text-white">
+                            தொடர்புடைய செய்திகள்
+                        </h2>
+                        <span
+                            class="font-sansUi text-[11px] text-editorialCrimson dark:text-amber-400 font-semibold">மேலும்
+                            வாசிக்க</span>
+                    </div>
+
+                    <div class="divide-y divide-editorialBorder dark:divide-editorialBorderDark">
+                        <!-- Story 1 -->
+                        <article class="py-4 first:pt-0">
+                            <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                                போக்குவரத்து &amp; சூழலியல்
+                            </span>
+                            <h3 class="font-masthead text-base font-bold text-ink dark:text-white leading-snug mt-1">
+                                <a href="#subscribe-section"
+                                    class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                                    சென்னை மெட்ரோ ரயில் நிலையங்களில் 100% சூரிய ஒளி மின்சாரப் பயன்பாடு விரிவாக்கம்
+                                </a>
+                            </h3>
+                            <p class="font-serifBody text-xs text-inkMuted dark:text-gray-400 leading-relaxed mt-1.5">
+                                இரண்டாம் கட்ட மெட்ரோ வழித்தடங்களின் மேற்கூரைகளில் நிறுவப்படும் சூரிய ஒளித் தகடுகள் மூலம்
+                                ஆண்டுக்கு 18,000 டன் கரிம உமிழ்வு தவிர்க்கப்படுகிறது.
+                            </p>
+                            <time datetime="2026-11-21"
+                                class="block font-sansUi text-[11px] text-inkMuted dark:text-gray-500 mt-2">
+                                நவம்பர் 21, 2026 • 4 நிமிட வாசிப்பு
+                            </time>
+                        </article>
+
+                        <!-- Story 2 -->
+                        <article class="py-4">
+                            <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                                வணிகம் &amp; தொழில்
+                            </span>
+                            <h3 class="font-masthead text-base font-bold text-ink dark:text-white leading-snug mt-1">
+                                <a href="#subscribe-section"
+                                    class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                                    கோவை சிறு, குறு தொழிற்சாலைகளில் மின்கல சேமிப்பு அமைப்புகளுக்கு மானியம் அதிகரிப்பு
+                                </a>
+                            </h3>
+                            <p class="font-serifBody text-xs text-inkMuted dark:text-gray-400 leading-relaxed mt-1.5">
+                                உற்பத்திச் செலவைக் குறைக்கவும் ஏற்றுமதித் தரத்தை உயர்த்தவும் பசுமை ஆற்றல்
+                                மாற்றத்திற்குத் தமிழக அரசு புதிய சலுகைகளை அறிவித்துள்ளது.
+                            </p>
+                            <time datetime="2026-11-20"
+                                class="block font-sansUi text-[11px] text-inkMuted dark:text-gray-500 mt-2">
+                                நவம்பர் 20, 2026 • 3 நிமிட வாசிப்பு
+                            </time>
+                        </article>
+
+                        <!-- Story 3 -->
+                        <article class="py-4">
+                            <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                                வேளாண்மை &amp; நீர்வளம்
+                            </span>
+                            <h3 class="font-masthead text-base font-bold text-ink dark:text-white leading-snug mt-1">
+                                <a href="#subscribe-section"
+                                    class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                                    காவிரி டெல்டா மாவட்டங்களில் சூரிய ஒளி வேளாண் பம்புசெட் திட்டத்திற்கு விவசாயிகள்
+                                    வரவேற்பு
+                                </a>
+                            </h3>
+                            <p class="font-serifBody text-xs text-inkMuted dark:text-gray-400 leading-relaxed mt-1.5">
+                                பகல் நேரத்திலேயே தடையின்றி பாசன நீர் கிடைப்பதால் இரவு நேரப் பாசனச் சிரமங்கள்
+                                குறைந்துள்ளதாக விவசாயிகள் நெகிழ்ச்சி.
+                            </p>
+                            <time datetime="2026-11-19"
+                                class="block font-sansUi text-[11px] text-inkMuted dark:text-gray-500 mt-2">
+                                நவம்பர் 19, 2026 • 5 நிமிட வாசிப்பு
+                            </time>
+                        </article>
+
+                        <!-- Story 4 -->
+                        <article class="py-4 last:pb-0">
+                            <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                                அறிவியல் &amp; ஆராய்ச்சி
+                            </span>
+                            <h3 class="font-masthead text-base font-bold text-ink dark:text-white leading-snug mt-1">
+                                <a href="#subscribe-section"
+                                    class="hover:text-editorialCrimson dark:hover:text-amber-400 transition-colors">
+                                    வெப்பமண்டலக் காலநிலைக்கு ஏற்ப அதிக திறன் கொண்ட புதிய மின்கலங்களை வடிவமைத்த ஐஐடி
+                                    மெட்ராஸ் குழு
+                                </a>
+                            </h3>
+                            <p class="font-serifBody text-xs text-inkMuted dark:text-gray-400 leading-relaxed mt-1.5">
+                                45 டிகிரி செல்சியஸ் வெப்பத்திலும் செயல்திறன் குறையாமல் நீடித்து உழைக்கும் உள்நாட்டுத்
+                                தொழில்நுட்பம் சோதனையில் வெற்றி.
+                            </p>
+                            <time datetime="2026-11-18"
+                                class="block font-sansUi text-[11px] text-inkMuted dark:text-gray-500 mt-2">
+                                நவம்பர் 18, 2026 • 4 நிமிட வாசிப்பு
+                            </time>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Box 3: Most Read / Trending List (1 to 5) -->
+                <section id="most-read" aria-labelledby="most-read-heading"
+                    class="bg-white dark:bg-[#181A1F] border border-editorialBorder dark:border-editorialBorderDark rounded-lg p-5">
+                    <div class="border-b-2 border-ink dark:border-gray-500 pb-2 mb-4">
+                        <h2 id="most-read-heading" class="font-masthead text-base font-bold text-ink dark:text-white">
+                            அதிகம் வாசிக்கப்பட்டவை
+                        </h2>
+                    </div>
+
+                    <ol class="space-y-3.5 font-masthead">
+                        <li class="flex items-start gap-3">
+                            <span
+                                class="text-xl font-extrabold text-editorialCrimson dark:text-amber-400 leading-none select-none w-5 shrink-0"
+                                aria-hidden="true">1</span>
+                            <a href="#main-content"
+                                class="text-sm font-bold text-ink dark:text-gray-100 hover:text-editorialCrimson dark:hover:text-amber-400 leading-snug">
+                                புறநகர் மின் கட்டமைப்பில் புதிய புரட்சி: சூரிய ஒளி நுண்-மின்வலைகளால் தன்னிறைவு பெறும்
+                                தமிழக நகரங்கள்
+                            </a>
+                        </li>
+                        <li
+                            class="flex items-start gap-3 pt-3 border-t border-editorialBorder dark:border-editorialBorderDark">
+                            <span
+                                class="text-xl font-extrabold text-inkMuted dark:text-gray-500 leading-none select-none w-5 shrink-0"
+                                aria-hidden="true">2</span>
+                            <a href="#subscribe-section"
+                                class="text-sm font-bold text-ink dark:text-gray-100 hover:text-editorialCrimson dark:hover:text-amber-400 leading-snug">
+                                தமிழகப் பொருளாதார வளர்ச்சி: சேவைத் துறை மற்றும் மின்னணு ஏற்றுமதியில் புதிய மைல்கல்
+                            </a>
+                        </li>
+                        <li
+                            class="flex items-start gap-3 pt-3 border-t border-editorialBorder dark:border-editorialBorderDark">
+                            <span
+                                class="text-xl font-extrabold text-inkMuted dark:text-gray-500 leading-none select-none w-5 shrink-0"
+                                aria-hidden="true">3</span>
+                            <a href="#subscribe-section"
+                                class="text-sm font-bold text-ink dark:text-gray-100 hover:text-editorialCrimson dark:hover:text-amber-400 leading-snug">
+                                கீழடி மற்றும் பொருநை அகழாய்வுகள்: சங்ககால நகர்ப்புற நீர் மேலாண்மை நுட்பங்கள் குறித்த
+                                புதிய பார்வை
+                            </a>
+                        </li>
+                        <li
+                            class="flex items-start gap-3 pt-3 border-t border-editorialBorder dark:border-editorialBorderDark">
+                            <span
+                                class="text-xl font-extrabold text-inkMuted dark:text-gray-500 leading-none select-none w-5 shrink-0"
+                                aria-hidden="true">4</span>
+                            <a href="#subscribe-section"
+                                class="text-sm font-bold text-ink dark:text-gray-100 hover:text-editorialCrimson dark:hover:text-amber-400 leading-snug">
+                                தலையங்கம்: நகர்ப்புறப் பசுமைப் போக்குவரத்தும் பொதுப் போக்குவரத்து ஒருங்கிணைப்பும்
+                            </a>
+                        </li>
+                        <li
+                            class="flex items-start gap-3 pt-3 border-t border-editorialBorder dark:border-editorialBorderDark">
+                            <span
+                                class="text-xl font-extrabold text-inkMuted dark:text-gray-500 leading-none select-none w-5 shrink-0"
+                                aria-hidden="true">5</span>
+                            <a href="#subscribe-section"
+                                class="text-sm font-bold text-ink dark:text-gray-100 hover:text-editorialCrimson dark:hover:text-amber-400 leading-snug">
+                                செஸ் ஒலிம்பியாட் வெற்றியாளர்களுக்குச் சென்னையில் பாராட்டு விழா: இளம் வீரர்களின் அனுபவப்
+                                பகிர்வு
+                            </a>
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- Box 4: Subscription & Reader Contact Form -->
+                <section id="subscribe-section" aria-labelledby="subscribe-heading"
+                    class="bg-white dark:bg-[#181A1F] border-2 border-ink dark:border-gray-500 rounded-lg p-5 sm:p-6 shadow-sm">
+                    <div class="mb-4">
+                        <span class="font-sansUi text-[11px] font-bold text-editorialCrimson dark:text-amber-400">
+                            வாசகர் இணைப்பு &amp; மின்னிதழ்
+                        </span>
+                        <h2 id="subscribe-heading"
+                            class="font-masthead text-xl font-bold text-ink dark:text-white mt-0.5 leading-snug">
+                            தினச் சுருக்கம் நாளிதழ் சந்தா &amp; வாசகர் தொடர்பு
+                        </h2>
+                        <p class="font-sansUi text-xs text-inkMuted dark:text-gray-400 leading-relaxed mt-1.5">
+                            தினசரி முக்கியச் செய்திகளை உங்கள் மின்னஞ்சலில் பெறவும் அல்லது ஆசிரியர் குழுவிற்கு உங்கள்
+                            கருத்துகளை அனுப்பவும்.
+                        </p>
+                    </div>
+
+                    <form id="tamil-newspaper-form" class="space-y-4 font-sansUi" novalidate>
+                        <!-- Name -->
+                        <div>
+                            <label for="reader-name"
+                                class="block text-xs font-semibold text-ink dark:text-gray-200 mb-1">
+                                பெயர் <span class="text-editorialCrimson dark:text-amber-400"
+                                    aria-hidden="true">*</span>
+                            </label>
+                            <input type="text" id="reader-name" name="readerName" required autocomplete="name"
+                                placeholder="எ.கா: கவின் குமார்"
+                                class="w-full px-3 py-2 text-sm rounded-md border border-editorialBorder dark:border-gray-600 bg-[#FAF9F6] dark:bg-[#121316] text-ink dark:text-white placeholder-gray-400 focus:border-editorialCrimson dark:focus:border-amber-400 focus:outline-none" />
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="reader-email"
+                                class="block text-xs font-semibold text-ink dark:text-gray-200 mb-1">
+                                மின்னஞ்சல் முகவரி <span class="text-editorialCrimson dark:text-amber-400"
+                                    aria-hidden="true">*</span>
+                            </label>
+                            <input type="email" id="reader-email" name="readerEmail" required autocomplete="email"
+                                placeholder="kavin@example.com"
+                                class="w-full px-3 py-2 text-sm rounded-md border border-editorialBorder dark:border-gray-600 bg-[#FAF9F6] dark:bg-[#121316] text-ink dark:text-white placeholder-gray-400 focus:border-editorialCrimson dark:focus:border-amber-400 focus:outline-none" />
+                        </div>
+
+                        <!-- Preferred Edition Checkboxes -->
+                        <fieldset class="space-y-2 pt-1">
+                            <legend class="text-xs font-semibold text-ink dark:text-gray-200 mb-1">
+                                விரும்பும் பதிப்புகள் / செய்திமடல்கள்:
+                            </legend>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="edition-morning" name="editions" value="காலைச் செய்திமடல்"
+                                    checked
+                                    class="h-4 w-4 rounded border-editorialBorder text-editorialCrimson focus:ring-editorialCrimson" />
+                                <label for="edition-morning" class="text-xs text-ink dark:text-gray-300">
+                                    காலைச் செய்திமடல் (தினமும் காலை 6:30 மணிக்கு)
+                                </label>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="edition-weekend" name="editions"
+                                    value="வார இறுதி சிறப்பு மலர்"
+                                    class="h-4 w-4 rounded border-editorialBorder text-editorialCrimson focus:ring-editorialCrimson" />
+                                <label for="edition-weekend" class="text-xs text-ink dark:text-gray-300">
+                                    வார இறுதி சிறப்பு மலர் (ஞாயிறு இலக்கியம் &amp; சமூகம்)
+                                </label>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="edition-biztech" name="editions"
+                                    value="வணிகம் & தொழில்நுட்பம்"
+                                    class="h-4 w-4 rounded border-editorialBorder text-editorialCrimson focus:ring-editorialCrimson" />
+                                <label for="edition-biztech" class="text-xs text-ink dark:text-gray-300">
+                                    வணிகம் &amp; தொழில்நுட்பம் வாராந்திர ஆய்வு
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <!-- Reader Feedback / Letter to the Editor -->
+                        <div>
+                            <label for="reader-feedback"
+                                class="block text-xs font-semibold text-ink dark:text-gray-200 mb-1">
+                                ஆசிரியருக்குக் கடிதம் / கருத்துகள் <span
+                                    class="font-normal text-inkMuted dark:text-gray-400">(விருப்பத்தேர்வு)</span>
+                            </label>
+                            <textarea id="reader-feedback" name="readerFeedback" rows="3"
+                                placeholder="இன்றைய கட்டுரை குறித்த உங்கள் கருத்துகளை இங்கே பதிவிடலாம்..."
+                                class="w-full px-3 py-2 text-sm rounded-md border border-editorialBorder dark:border-gray-600 bg-[#FAF9F6] dark:bg-[#121316] text-ink dark:text-white placeholder-gray-400 focus:border-editorialCrimson dark:focus:border-amber-400 focus:outline-none"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="w-full py-2.5 px-4 rounded-md bg-editorialCrimson text-white font-semibold text-sm hover:bg-red-800 transition-colors cursor-pointer shadow-sm">
+                            சந்தாவை உறுதி செய் &amp; அனுப்பு
+                        </button>
+
+                        <!-- Accessible Live Feedback Region -->
+                        <div id="form-status" role="status" aria-live="polite"
+                            class="hidden rounded-md p-3 text-xs leading-relaxed"></div>
+                    </form>
+                </section>
+
+            </aside>
+        </div>
+    </main>
+
+    <!-- Newspaper Footer -->
+    <footer
+        class="mt-12 border-t-4 border-double border-ink dark:border-gray-600 bg-[#F2EFE9] dark:bg-[#181A1F] font-sansUi text-inkMuted dark:text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div
+                class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-editorialBorder dark:border-editorialBorderDark">
+                <!-- Masthead & Ethics Summary -->
+                <div class="md:col-span-5">
+                    <p class="font-masthead text-2xl font-extrabold text-ink dark:text-white">
+                        தினச் சுருக்கம்
+                    </p>
+                    <p class="text-xs font-semibold text-editorialCrimson dark:text-amber-400 mt-0.5">
+                        உண்மை • தெளிவு • நடுநிலை
+                    </p>
+                    <p class="text-xs leading-relaxed mt-3 max-w-sm">
+                        சமூகப் பொறுப்புணர்வுடன் கூடிய நடுநிலையான இதழியல் அறநெறிகளைப் பின்பற்றி, உண்மைத்தன்மை
+                        சரிபார்க்கப்பட்ட செய்திகளையும் ஆழமான பகுப்பாய்வுகளையும் வாசகர்களுக்கு வழங்குவதே எங்கள் தலையாய
+                        நோக்கம்.
+                    </p>
+                    <address class="not-italic text-xs mt-3 text-ink dark:text-gray-300">
+                        தலைமை அலுவலகம்: எண் 142, அண்ணா சாலை, சென்னை – 600 002 • மின்னஞ்சல்: <a
+                            href="mailto:editorial@dinachurukkam.example.in"
+                            class="underline hover:text-editorialCrimson dark:hover:text-amber-400">editorial@dinachurukkam.example.in</a>
+                    </address>
+                </div>
+
+                <!-- Quick Sections -->
+                <div class="md:col-span-3">
+                    <h3 class="text-xs font-bold text-ink dark:text-white mb-3">செய்திப் பிரிவுகள்</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#main-content"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">தமிழகம்</a>
+                        </li>
+                        <li><a href="#related-news"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">இந்தியா
+                                &amp; உலகம்</a></li>
+                        <li><a href="#data-breakdown"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">வணிகம்
+                                &amp; பொருளாதாரம்</a></li>
+                        <li><a href="#data-breakdown"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">அறிவியல்
+                                &amp; தொழில்நுட்பம்</a></li>
+                        <li><a href="#most-read"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">தலையங்கம்
+                                &amp; கட்டுரைகள்</a></li>
+                    </ul>
+                </div>
+
+                <!-- Editorial Policies -->
+                <div class="md:col-span-4">
+                    <h3 class="text-xs font-bold text-ink dark:text-white mb-3">இதழியல் நெறிமுறைகள் &amp; தொடர்பு</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#subscribe-section"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">ஆசிரியர்
+                                குழுவுடன் தொடர்பு கொள்ள</a></li>
+                        <li><a href="#subscribe-section"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">பிழை
+                                திருத்தம் &amp; விளக்கக் கொள்கை</a></li>
+                        <li><a href="#subscribe-section"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">உண்மைச்
+                                சரிபார்ப்பு வழிமுறைகள்</a></li>
+                        <li><a href="#subscribe-section"
+                                class="hover:text-editorialCrimson dark:hover:text-amber-400 hover:underline">தனியுரிமைக்
+                                கொள்கை &amp; விதிமுறைகள்</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+                <p>© 2026 தினச் சுருக்கம் ஊடகக் குழுமம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+                <p>பதிவு எண்: TN/CHN/2026/326 • அச்சு மற்றும் டிஜிட்டல் பதிப்பு</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Script for Font Size, Night Mode, Bookmark/Share, and Tamil Form Validation -->
+    <script>
+        (function () {
+            // 1. Font Size Controls (அ- / அ / அ+)
+            const articleBody = document.getElementById('article-body');
+            const fontButtons = document.querySelectorAll('.font-size-btn');
+
+            fontButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const size = btn.getAttribute('data-font-size');
+                    articleBody.classList.remove('article-text-sm', 'article-text-md', 'article-text-lg');
+                    articleBody.classList.add('article-text-' + size);
+
+                    fontButtons.forEach((b) => {
+                        b.classList.remove('bg-[#F2EFE9]', 'dark:bg-gray-700', 'text-ink', 'dark:text-white', 'font-bold');
+                        b.classList.add('text-inkMuted', 'dark:text-gray-300', 'font-semibold');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+
+                    btn.classList.remove('text-inkMuted', 'dark:text-gray-300', 'font-semibold');
+                    btn.classList.add('bg-[#F2EFE9]', 'dark:bg-gray-700', 'text-ink', 'dark:text-white', 'font-bold');
+                    btn.setAttribute('aria-pressed', 'true');
+                });
+            });
+
+            // 2. Dark / Night Reading Mode Toggle (இரவுப் பயன்முறை)
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeLabel = document.getElementById('theme-label');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const sunIcon = document.getElementById('theme-icon-sun');
+
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                themeToggle.setAttribute('aria-pressed', String(isDark));
+                themeLabel.textContent = isDark ? 'பகல் பயன்முறை' : 'இரவுப் பயன்முறை';
+                moonIcon.classList.toggle('hidden', isDark);
+                sunIcon.classList.toggle('hidden', !isDark);
+            });
+
+            // 3. Bookmark Toggle (சேமி)
+            const bookmarkBtn = document.getElementById('bookmark-btn');
+            const bookmarkLabel = document.getElementById('bookmark-label');
+            const bookmarkIcon = document.getElementById('bookmark-icon');
+            let isBookmarked = false;
+
+            bookmarkBtn.addEventListener('click', () => {
+                isBookmarked = !isBookmarked;
+                bookmarkBtn.setAttribute('aria-pressed', String(isBookmarked));
+                bookmarkLabel.textContent = isBookmarked ? 'சேமிக்கப்பட்டது' : 'சேமி';
+                bookmarkIcon.setAttribute('fill', isBookmarked ? 'currentColor' : 'none');
+                bookmarkBtn.classList.toggle('text-editorialCrimson', isBookmarked);
+                bookmarkBtn.classList.toggle('dark:text-amber-400', isBookmarked);
+            });
+
+            // 4. Copy Share Link (பகிர்)
+            const shareBtn = document.getElementById('share-btn');
+            const shareLabel = document.getElementById('share-label');
+
+            shareBtn.addEventListener('click', () => {
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    shareLabel.textContent = 'நகலெடுக்கப்பட்டது';
+                    setTimeout(() => {
+                        shareLabel.textContent = 'பகிர்';
+                    }, 2200);
+                } catch (err) {
+                    shareLabel.textContent = 'தயார்';
+                }
+                document.body.removeChild(tempInput);
+            });
+
+            // 5. Subscription & Reader Contact Form Validation
+            const form = document.getElementById('tamil-newspaper-form');
+            const statusBox = document.getElementById('form-status');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const nameInput = document.getElementById('reader-name');
+                const emailInput = document.getElementById('reader-email');
+                const nameVal = nameInput.value.trim();
+                const emailVal = emailInput.value.trim();
+                const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+
+                const selectedEditions = Array.from(
+                    form.querySelectorAll('input[name="editions"]:checked')
+                ).map((cb) => cb.value);
+
+                statusBox.classList.remove(
+                    'hidden',
+                    'bg-red-50',
+                    'text-red-900',
+                    'border',
+                    'border-red-300',
+                    'dark:bg-red-950/60',
+                    'dark:text-red-200',
+                    'dark:border-red-800',
+                    'bg-emerald-50',
+                    'text-emerald-900',
+                    'border-emerald-300',
+                    'dark:bg-emerald-950/60',
+                    'dark:text-emerald-200',
+                    'dark:border-emerald-800'
+                );
+
+                if (!nameVal || !emailValid) {
+                    statusBox.classList.add(
+                        'bg-red-50',
+                        'text-red-900',
+                        'border',
+                        'border-red-300',
+                        'dark:bg-red-950/60',
+                        'dark:text-red-200',
+                        'dark:border-red-800'
+                    );
+                    statusBox.textContent = 'தயவுசெய்து உங்கள் பெயர் மற்றும் சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்.';
+                    if (!nameVal) {
+                        nameInput.focus();
+                    } else {
+                        emailInput.focus();
+                    }
+                    return;
+                }
+
+                const editionsSummary =
+                    selectedEditions.length > 0
+                        ? ` (${selectedEditions.join(', ')})`
+                        : '';
+
+                statusBox.classList.add(
+                    'bg-emerald-50',
+                    'text-emerald-900',
+                    'border',
+                    'border-emerald-300',
+                    'dark:bg-emerald-950/60',
+                    'dark:text-emerald-200',
+                    'dark:border-emerald-800'
+                );
+                statusBox.innerHTML = `<strong>நன்றி, ${escapeHtml(nameVal)}!</strong> உங்கள் கோரிக்கை${escapeHtml(editionsSummary)} வெற்றிகரமாகப் பதிவு செய்யப்பட்டுள்ளது. உறுதிப்படுத்தல் விவரம் <strong>${escapeHtml(emailVal)}</strong> என்ற முகவரிக்கு அனுப்பப்படும்.`;
+                form.reset();
+            });
+
+            function escapeHtml(str) {
+                return str
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+        })();
+    </script>
+</body>
+
+</html>

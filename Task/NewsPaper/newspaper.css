@@ -1,0 +1,66 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #FAF9F6;
+    color: #181818;
+    font-family: 'Noto Serif Tamil', serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html.dark body {
+    background-color: #121316;
+    color: #E5E7EB;
+}
+
+/* Classic broadsheet drop cap tuned for Tamil script diacritics */
+.tamil-drop-cap::first-letter {
+    float: left;
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 3.1rem;
+    line-height: 1.05;
+    padding-top: 0.15rem;
+    padding-right: 0.65rem;
+    padding-bottom: 0.1rem;
+    font-weight: 800;
+    color: #A8201A;
+}
+
+html.dark .tamil-drop-cap::first-letter {
+    color: #F59E0B;
+}
+
+/* Double-rule newspaper divider */
+.double-rule {
+    border-top: 3px double #181818;
+}
+
+html.dark .double-rule {
+    border-top-color: #4B5563;
+}
+
+/* Generous line-height for Tamil script legibility */
+.article-text-sm p,
+.article-text-sm li {
+    font-size: 0.94rem;
+    line-height: 1.85;
+}
+
+.article-text-md p,
+.article-text-md li {
+    font-size: 1.05rem;
+    line-height: 1.92;
+}
+
+.article-text-lg p,
+.article-text-lg li {
+    font-size: 1.18rem;
+    line-height: 2.0;
+}
+
+/* Keyboard focus outline */
+:focus-visible {
+    outline: 2px solid #A8201A;
+    outline-offset: 2px;
+}
