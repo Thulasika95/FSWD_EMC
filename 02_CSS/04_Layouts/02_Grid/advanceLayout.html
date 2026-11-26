@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Layout</title>
+
+    <style>
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "kitchen entrance entrance hall"
+                "kitchen staircase bedroom bedroom"
+            ;
+            gap: 80px;
+            height: 80vh;
+        }
+        .item {
+            background-color: brown;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item entrance" style="grid-area: entrance;">Entrance</div>
+        <div class="item kitchen" style="grid-area: kitchen;">Kitchen</div>
+        <div class="item hall" style="grid-area: hall;">Hall</div>
+        <div class="item staircase" style="grid-area: staircase;">Staircase</div>
+        <div class="item bedroom" style="grid-area: bedroom;">Bedroom</div>
+    </div>
+</body>
+</html>
